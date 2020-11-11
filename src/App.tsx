@@ -4,7 +4,10 @@ import "./App.css";
 import LikeButton from "./components/LikeButton";
 import Hello from "./components/Hello";
 import CounterWrapper from "./components/CounterWrapper";
-import useURLLoader from "./hooks/useURLLoader";
+import BizDemoPercent from "./components/BizDemoPercent";
+import BizDemoAverage from "./components/BizDemoAverage";
+import BizDemoDoubleY from "./components/BizDemoDoubleY";
+// import useURLLoader from "./hooks/useURLLoader";
 
 interface IShowResult {
   message: string;
@@ -34,6 +37,9 @@ const App: React.FC = () => {
     <div className="App">
       <ThemeContext.Provider value={themes.dark}>
         <header className="App-header">
+          <BizDemoDoubleY />
+          <BizDemoPercent />
+          <BizDemoAverage />
           <CounterWrapper />
           <img src={logo} className="App-logo" alt="logo" />
           <LikeButton />
