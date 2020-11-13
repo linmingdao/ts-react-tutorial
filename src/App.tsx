@@ -8,6 +8,11 @@ import BizDemoPercent from "./components/BizDemoPercent";
 import BizDemoAverage from "./components/BizDemoAverage";
 import BizDemoDoubleY from "./components/BizDemoDoubleY";
 // import useURLLoader from "./hooks/useURLLoader";
+import ReactDndDemo from "./ReactDndDemo";
+import ReactSortableDemo from "./ReactSortableDemo";
+import ReactSortableHocDemo from "./ReactSortableHocDemo/index.jsx";
+import ReactDndSortableDemo from "./ReactDndSortableDemo";
+import H5EditorDemo from "./H5EditorDemo";
 
 interface IShowResult {
   message: string;
@@ -37,6 +42,11 @@ const App: React.FC = () => {
     <div className="App">
       <ThemeContext.Provider value={themes.dark}>
         <header className="App-header">
+          <H5EditorDemo />
+          <ReactDndSortableDemo />
+          <ReactSortableHocDemo />
+          <ReactSortableDemo />
+          <ReactDndDemo />
           <BizDemoDoubleY />
           <BizDemoPercent />
           <BizDemoAverage />

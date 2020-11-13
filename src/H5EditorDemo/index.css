@@ -1,0 +1,25 @@
+.h5-box {
+  margin-top: 50px;
+  width: 1200px;
+  height: 900px;
+  background-color: #fff;
+  display: flex;
+}
+
+.h5-box .left-region {
+  width: 300px;
+  background-color: #eee;
+  height: 100%;
+  overflow-y: auto;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+}
+
+.h5-box .right-region {
+  flex: 1;
+  background-color: #fff;
+  height: 100%;
+  box-sizing: border-box;
+  overflow-y: auto;
+}
