@@ -1,22 +1,5 @@
 import React from "react";
-import {
-  G2,
-  Chart,
-  Geom,
-  Axis,
-  Tooltip,
-  Coord,
-  Label,
-  Legend,
-  View,
-  Guide,
-  Shape,
-  Facet,
-  Util,
-  Point,
-  Line,
-  Interval,
-} from "bizcharts";
+import { Chart, Axis, Tooltip, Legend, Point, Line } from "bizcharts";
 import moment from "moment";
 
 const data = [

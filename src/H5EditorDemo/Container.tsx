@@ -3,23 +3,32 @@ import { connect } from "react-redux";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import { DndProvider } from "react-dnd";
 import FormPanel from "./FormPanel";
+import FormEditor from "./FormEditor";
 import Box from "./Box";
 import "./index.css";
 
+const EditorContext = React.createContext("");
+
 const Container: React.FC = (props: any) => {
   const { basics } = props;
+  const currentEditId = "";
+
   return (
     <DndProvider backend={HTML5Backend}>
-      <div className="h5-box">
-        <div className="left-region">
-          {basics.map((item: any) => (
-            <Box key={item.id} name={item.name} preference={item} />
-          ))}
+      <EditorContext.Provider value={currentEditId}>
+        <div className="h5-box">
+          <div className="left-region">
+            {basics.map((item: any) => (
+              <Box key={item.id} name={item.name} preference={item} />
+            ))}
+          </div>
+          <div className="right-region">
+            <FormPanel>
+              <FormEditor />
+            </FormPanel>
+          </div>
         </div>
-        <div className="right-region">
-          <FormPanel />
-        </div>
-      </div>
+      </EditorContext.Provider>
     </DndProvider>
   );
 };

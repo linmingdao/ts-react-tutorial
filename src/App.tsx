@@ -1,18 +1,20 @@
 import React, { useState } from "react";
-import logo from "./logo.svg";
+// import logo from "./logo.svg";
+import "antd/dist/antd.css";
 import "./App.css";
-import LikeButton from "./components/LikeButton";
-import Hello from "./components/Hello";
-import CounterWrapper from "./components/CounterWrapper";
-import BizDemoPercent from "./components/BizDemoPercent";
-import BizDemoAverage from "./components/BizDemoAverage";
-import BizDemoDoubleY from "./components/BizDemoDoubleY";
+// import LikeButton from "./components/LikeButton";
+// import Hello from "./components/Hello";
+// import CounterWrapper from "./components/CounterWrapper";
+// import BizDemoPercent from "./components/BizDemoPercent";
+// import BizDemoAverage from "./components/BizDemoAverage";
+// import BizDemoDoubleY from "./components/BizDemoDoubleY";
 // import useURLLoader from "./hooks/useURLLoader";
-import ReactDndDemo from "./ReactDndDemo";
-import ReactSortableDemo from "./ReactSortableDemo";
-import ReactSortableHocDemo from "./ReactSortableHocDemo/index.jsx";
-import ReactDndSortableDemo from "./ReactDndSortableDemo";
-import H5EditorDemo from "./H5EditorDemo";
+// import ReactDndDemo from "./ReactDndDemo";
+// import ReactSortableDemo from "./ReactSortableDemo";
+// import ReactSortableHocDemo from "./ReactSortableHocDemo/index.jsx";
+// import ReactDndSortableDemo from "./ReactDndSortableDemo";
+// import H5EditorDemo from "./H5EditorDemo";
+import EditorV2 from "./EditorV2";
 
 interface IShowResult {
   message: string;
@@ -42,7 +44,8 @@ const App: React.FC = () => {
     <div className="App">
       <ThemeContext.Provider value={themes.dark}>
         <header className="App-header">
-          <H5EditorDemo />
+          <EditorV2 />
+          {/* <H5EditorDemo />
           <ReactDndSortableDemo />
           <ReactSortableHocDemo />
           <ReactSortableDemo />
@@ -70,7 +73,7 @@ const App: React.FC = () => {
             rel="noopener noreferrer"
           >
             Learn React
-          </a>
+          </a> */}
         </header>
       </ThemeContext.Provider>
     </div>

@@ -1,0 +1,86 @@
+.editor {
+  height: 900px;
+  width: 1400px;
+  margin-top: 50px;
+  color: #555;
+  background-color: #fff;
+  display: flex;
+}
+
+.editor .templates-list {
+  width: 300px;
+  height: 100%;
+  background-color: #eee;
+  display: flex;
+  flex-direction: column;
+}
+
+.editor .layout-editor {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.editor .layout-editor .toolbar {
+  height: 50px;
+  background-color: #eee;
+}
+
+.editor .layout-editor .stage {
+  flex: 1;
+  overflow-y: auto;
+}
+
+.editor .attrs-editor {
+  width: 300px;
+  height: 100%;
+  background-color: #eee;
+  overflow-y: auto;
+}
+
+.editor .templates-list .title {
+  height: 50px;
+  font-size: 20px;
+  line-height: 50px;
+  background-color: #fac9b7;
+}
+
+.editor .templates-list .list {
+  flex: 1;
+  overflow-y: auto;
+}
+
+.editor .templates-list .list .template-item {
+  display: inline-block;
+  height: 100px;
+  width: 120px;
+  border: 1px solid #a5a5a5;
+  margin: 5px;
+  overflow: hidden;
+  cursor: move;
+}
+
+.editor .templates-list .list .template-item:hover {
+  border-color: #2323f2;
+}
+
+.editor .templates-list .list .template-item .template-preview {
+  height: 80px;
+}
+
+.editor .templates-list .list .template-item .template-name {
+  font-size: 14px;
+  height: 20px;
+  line-height: 20px;
+  background-color: #f4dec3;
+}
+
+.form-wrapper {
+  padding: 20px;
+  margin: 20px;
+  border: 1px solid #cecece;
+}
+
+.form-wrapper:hover {
+  border-color: #2323f2;
+}

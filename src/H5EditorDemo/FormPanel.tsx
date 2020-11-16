@@ -5,8 +5,6 @@ import React, { useCallback } from "react";
 import FormItem from "./FormItem";
 import { sort } from "./store/actions/library";
 import update from "immutability-helper";
-// import { HTML5Backend } from "react-dnd-html5-backend";
-// import { DndProvider } from "react-dnd";
 
 const style: React.CSSProperties = {
   height: "100%",
@@ -16,7 +14,12 @@ const style: React.CSSProperties = {
   textAlign: "center",
 };
 
-const FormPanel: React.FC = (props: any) => {
+interface FormPanelProps {
+  preferences: any;
+  sort: any;
+}
+
+const FormPanel: React.FC<FormPanelProps> = (props) => {
   const { preferences, sort } = props;
   const [{ canDrop, isOver }, drop] = useDrop({
     accept: ItemTypes.BOX,

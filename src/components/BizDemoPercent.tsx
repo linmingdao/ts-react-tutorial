@@ -1,15 +1,6 @@
 import React from "react";
 import DataSet from "@antv/data-set";
-import {
-  Chart,
-  Area,
-  Line,
-  Legend,
-  Tooltip,
-  Axis,
-  View,
-  Coordinate,
-} from "bizcharts";
+import { Chart, Area, Tooltip } from "bizcharts";
 
 const BizDemoPercent: React.FC = () => {
   const data = [
