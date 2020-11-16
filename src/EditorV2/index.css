@@ -24,6 +24,9 @@
 .editor .layout-editor .toolbar {
   height: 50px;
   background-color: #eee;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
 }
 
 .editor .layout-editor .stage {

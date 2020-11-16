@@ -43,6 +43,10 @@ interface IEditorContext {
   handleRemove?: SelectedCallback;
   handleSelect?: SelectedCallback;
   handleClear?: () => void;
+  handleReset?: () => void;
+  handleUndo?: () => void;
+  handleRedo?: () => void;
+  handleSave?: () => void;
 }
 
 export const EditorContext = React.createContext<IEditorContext>({
@@ -71,7 +75,6 @@ const H5Editor: React.FC<IH5EditorProps> = (props) => {
     currentIndex: currentIndex,
     currentPreferences: currentPreferences ? currentPreferences : [],
     handleDrop(item: any) {
-      console.log("handleDrop", "item", item);
       if (currentPreferences) {
         setCurrentPreferences([
           ...currentPreferences,
@@ -82,7 +85,6 @@ const H5Editor: React.FC<IH5EditorProps> = (props) => {
       }
     },
     handleSelect(selectedIndex: number) {
-      console.log("handleSelect", "selectedIndex", selectedIndex);
       setCurrentIndex(selectedIndex);
     },
     handleCopy(selectedIndex: number) {
@@ -94,6 +96,18 @@ const H5Editor: React.FC<IH5EditorProps> = (props) => {
     handleClear() {
       console.log("handleClear");
       setCurrentPreferences([]);
+    },
+    handleReset() {
+      console.log("handleReset");
+    },
+    handleRedo() {
+      console.log("handleRedo");
+    },
+    handleUndo() {
+      console.log("handleUndo");
+    },
+    handleSave() {
+      console.log("handleSave");
     },
   };
 

@@ -1,10 +1,19 @@
 import React, { useContext } from "react";
+import { Button } from "antd";
 import { useDrop } from "react-dnd";
 import { EditorContext } from "./index";
 import BasicForm from "./BasicComponents/BasicForm";
 
 const LayoutEditor: React.FC = () => {
-  const { currentPreferences, handleSelect } = useContext(EditorContext);
+  const {
+    currentPreferences,
+    handleSelect,
+    handleClear,
+    handleRedo,
+    handleReset,
+    handleUndo,
+    handleSave,
+  } = useContext(EditorContext);
   const [{ canDrop, isOver }, drop] = useDrop({
     accept: "TemplateItem",
     drop: () => ({ name: "LayoutEditor" }),
@@ -36,7 +45,23 @@ const LayoutEditor: React.FC = () => {
 
   return (
     <div className="layout-editor">
-      <div className="toolbar">LayoutEditor Toolbar</div>
+      <div className="toolbar">
+        <Button type="link" onClick={() => handleUndo && handleUndo()}>
+          撤 销
+        </Button>
+        <Button type="link" onClick={() => handleRedo && handleRedo()}>
+          恢 复
+        </Button>
+        <Button type="link" onClick={() => handleSave && handleSave()}>
+          保 存
+        </Button>
+        <Button type="link" onClick={() => handleReset && handleReset()}>
+          重 置
+        </Button>
+        <Button type="link" onClick={() => handleClear && handleClear()}>
+          清空面板
+        </Button>
+      </div>
       <div ref={drop} className="stage" style={{ backgroundColor }}>
         {currentPreferences.map((item, index) => renderItem(item, index))}
       </div>
