@@ -36,9 +36,9 @@ const Item: React.FC<ItemProps> = (props) => {
   const cursor = isDragging ? "grabbing" : "move";
 
   return (
-    <div ref={drag} className="template-item" style={{ opacity, cursor }}>
-      <div className="template-preview"></div>
-      <div className="template-name">{name}</div>
+    <div ref={drag} className="item" style={{ opacity, cursor }}>
+      <div className="preview"></div>
+      <div className="name">{name}</div>
     </div>
   );
 };

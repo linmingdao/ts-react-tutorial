@@ -4,28 +4,44 @@ import { HTML5Backend } from "react-dnd-html5-backend";
 import { DndProvider } from "react-dnd";
 import Editor from "./Editor";
 
-const tmpl = [
-  { id: nanoid(), name: "轮播图组件", type: "lbt" },
-  { id: nanoid(), name: "页脚组件", type: "yj" },
-  { id: nanoid(), name: "表格组件", type: "bg" },
-  { id: nanoid(), name: "页头组件", type: "yt" },
-  { id: nanoid(), name: "轮播图组件", type: "lbt" },
-  { id: nanoid(), name: "页脚组件", type: "yj" },
-  { id: nanoid(), name: "表格组件", type: "bg" },
-  { id: nanoid(), name: "页头组件", type: "yt" },
-  { id: nanoid(), name: "轮播图组件", type: "lbt" },
-  { id: nanoid(), name: "页脚组件", type: "yj" },
-  { id: nanoid(), name: "表格组件", type: "bg" },
-  { id: nanoid(), name: "页头组件", type: "yt" },
-  { id: nanoid(), name: "轮播图组件", type: "lbt" },
-  { id: nanoid(), name: "页脚组件", type: "yj" },
-  { id: nanoid(), name: "表格组件", type: "bg" },
-  { id: nanoid(), name: "页头组件", type: "yt" },
-  { id: nanoid(), name: "轮播图组件", type: "lbt" },
-  { id: nanoid(), name: "页脚组件", type: "yj" },
-  { id: nanoid(), name: "表格组件", type: "bg" },
-  { id: nanoid(), name: "页头组件", type: "yt" },
+const basic = [
+  { id: nanoid(), name: "基础组件", type: "lbt" },
+  { id: nanoid(), name: "基础组件", type: "yj" },
+  { id: nanoid(), name: "基础组件", type: "bg" },
+  { id: nanoid(), name: "基础组件", type: "yt" },
+  { id: nanoid(), name: "基础组件", type: "lbt" },
+  { id: nanoid(), name: "基础组件", type: "yj" },
+  { id: nanoid(), name: "基础组件", type: "bg" },
+  { id: nanoid(), name: "基础组件", type: "yt" },
 ];
+
+const tmpl = [
+  { id: nanoid(), name: "模板组件", type: "lbt" },
+  { id: nanoid(), name: "模板组件", type: "yj" },
+  { id: nanoid(), name: "模板组件", type: "bg" },
+  { id: nanoid(), name: "模板组件", type: "yt" },
+  { id: nanoid(), name: "模板组件", type: "lbt" },
+  { id: nanoid(), name: "模板组件", type: "yj" },
+  { id: nanoid(), name: "模板组件", type: "bg" },
+  { id: nanoid(), name: "模板组件", type: "yt" },
+];
+
+const business = [
+  { id: nanoid(), name: "业务组件", type: "lbt" },
+  { id: nanoid(), name: "业务组件", type: "yj" },
+  { id: nanoid(), name: "业务组件", type: "bg" },
+  { id: nanoid(), name: "业务组件", type: "yt" },
+  { id: nanoid(), name: "业务组件", type: "lbt" },
+  { id: nanoid(), name: "业务组件", type: "yj" },
+  { id: nanoid(), name: "业务组件", type: "bg" },
+  { id: nanoid(), name: "业务组件", type: "yt" },
+];
+
+export enum Category {
+  Basics = 0,
+  Templates,
+  Businesses,
+}
 
 interface ITemplate {
   id: string;
@@ -34,24 +50,36 @@ interface ITemplate {
 }
 
 type SelectedCallback = (selectedIndex: number) => void;
+type SelectedCallbackRetList = (selectedIndex: number) => any[];
+type NoSelectedCallback = () => void;
 
 interface IEditorContext {
+  basics: ITemplate[];
   templates: ITemplate[];
+  businesses: ITemplate[];
+  defaultCategory: Category;
   currentIndex?: number;
   currentPreferences: any[];
+  getCategoryComponents: SelectedCallbackRetList;
   handleDrop?: (item: any) => void;
   handleCopy?: SelectedCallback;
   handleRemove?: SelectedCallback;
   handleSelect?: SelectedCallback;
-  handleClear?: () => void;
-  handleReset?: () => void;
-  handleUndo?: () => void;
-  handleRedo?: () => void;
-  handleSave?: () => void;
+  handleClear?: NoSelectedCallback;
+  handleReset?: NoSelectedCallback;
+  handleUndo?: NoSelectedCallback;
+  handleRedo?: NoSelectedCallback;
+  handleSave?: NoSelectedCallback;
 }
 
 export const EditorContext = React.createContext<IEditorContext>({
+  getCategoryComponents() {
+    return [];
+  },
+  defaultCategory: Category.Basics,
+  basics: [],
   templates: [],
+  businesses: [],
   currentIndex: 0,
   currentPreferences: [],
 });
@@ -59,7 +87,7 @@ export const EditorContext = React.createContext<IEditorContext>({
 interface IH5EditorProps {
   defaultPreferences?: any[];
   defaultIndex?: number;
-  onChange?: () => void;
+  onChange?: NoSelectedCallback;
   className?: string;
   style?: React.CSSProperties;
 }
@@ -72,9 +100,25 @@ const H5Editor: React.FC<IH5EditorProps> = (props) => {
   const [currentIndex, setCurrentIndex] = useState(defaultIndex);
 
   const passedContext: IEditorContext = {
+    basics: basic,
     templates: tmpl,
+    businesses: business,
+    defaultCategory: Category.Basics,
     currentIndex: currentIndex,
     currentPreferences: currentPreferences ? currentPreferences : [],
+    getCategoryComponents(category: number) {
+      switch (category) {
+        case Category.Basics:
+          return passedContext.basics;
+
+        case Category.Templates:
+          return passedContext.templates;
+        case Category.Businesses:
+          return passedContext.businesses;
+        default:
+          return [];
+      }
+    },
     handleDrop(item: any) {
       if (currentPreferences) {
         setCurrentPreferences([
