@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { useDrag, DragSourceMonitor } from "react-dnd";
-import { EditorContext } from "./index";
+import { EditorContext } from "../index";
 
 interface Config {
   id: string;
@@ -8,11 +8,11 @@ interface Config {
   type: string;
 }
 
-interface TempateItemProps {
+interface ItemProps {
   config: Config;
 }
 
-const TemplateItem: React.FC<TempateItemProps> = (props) => {
+const Item: React.FC<ItemProps> = (props) => {
   const { name } = props.config;
   const { handleDrop } = useContext(EditorContext);
 
@@ -43,6 +43,6 @@ const TemplateItem: React.FC<TempateItemProps> = (props) => {
   );
 };
 
-TemplateItem.displayName = "TemplateItem";
+Item.displayName = "Item";
 
-export default TemplateItem;
+export default Item;

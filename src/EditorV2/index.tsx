@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { nanoid } from "nanoid";
+import { HTML5Backend } from "react-dnd-html5-backend";
+import { DndProvider } from "react-dnd";
 import Editor from "./Editor";
-import "./index.css";
 
 const tmpl = [
   { id: nanoid(), name: "轮播图组件", type: "lbt" },
@@ -113,7 +114,9 @@ const H5Editor: React.FC<IH5EditorProps> = (props) => {
 
   return (
     <EditorContext.Provider value={passedContext}>
-      <Editor />
+      <DndProvider backend={HTML5Backend}>
+        <Editor />
+      </DndProvider>
     </EditorContext.Provider>
   );
 };
