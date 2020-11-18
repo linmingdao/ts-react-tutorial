@@ -1,7 +1,8 @@
-import React, { useContext } from "react";
+import React, { useContext, useCallback } from "react";
 import { useDrop } from "react-dnd";
 import { EditorContext } from "../index";
-import BasicForm from "../Components/Templates/BasicForm";
+import SortableItem from "./SortableItem";
+import DynamicEngine from "../Components/DynamicEngine";
 
 const Stage: React.FC = () => {
   const { currentPreferences, handleSelect } = useContext(EditorContext);
@@ -27,16 +28,25 @@ const Stage: React.FC = () => {
     $collaOutline && ($collaOutline.style["backgroundColor"] = backgroundColor);
   }
 
+  // 排序
+  const moveFormItem = useCallback((dragIndex: number, hoverIndex: number) => {
+    console.log(dragIndex, hoverIndex);
+  }, []);
+
   function renderItem(item: any, index: number) {
+    // onClick={() => handleSelect && handleSelect(index)}
     return (
-      <div
+      <SortableItem
         key={item.id}
-        style={{ backgroundColor: "#fff" }}
-        className="form-wrapper"
-        onClick={() => handleSelect && handleSelect(index)}
+        id={item.id}
+        index={index}
+        moveFormItem={moveFormItem}
       >
-        <BasicForm />
-      </div>
+        <DynamicEngine
+          componentType={item.componentType}
+          componentName={item.componentName}
+        />
+      </SortableItem>
     );
   }
 

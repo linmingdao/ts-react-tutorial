@@ -32,10 +32,8 @@ const Item: React.FC<ItemProps> = (props) => {
     }),
   });
 
-  const opacity = isDragging ? 0.5 : 1;
-
   return (
-    <div ref={drag} className="item" style={{ opacity }}>
+    <div ref={drag} className="item" style={{ opacity: isDragging ? 0.3 : 1 }}>
       <div className="preview"></div>
       <div className="name">{name}</div>
     </div>

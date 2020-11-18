@@ -167,10 +167,12 @@
 
 .form-wrapper {
   padding: 10px;
-  margin: 10px 0;
-  border: 1px solid #dcdcdc;
+  /* margin: 10px 0; */
+  /* border: 1px solid #dcdcdc; */
+  background-color: #fff;
 }
 
 .form-wrapper:hover {
-  border-color: #1890ff;
+  /* border-color: #1890ff; */
+  border: 1px solid #1890ff;
 }

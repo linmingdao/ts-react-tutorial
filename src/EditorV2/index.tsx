@@ -5,49 +5,52 @@ import { DndProvider } from "react-dnd";
 import Editor from "./Editor";
 import "./index.css";
 
-const basic = [
-  { id: nanoid(), name: "基础组件", type: "lbt" },
-  { id: nanoid(), name: "基础组件", type: "yj" },
-  { id: nanoid(), name: "基础组件", type: "bg" },
-  { id: nanoid(), name: "基础组件", type: "yt" },
-  { id: nanoid(), name: "基础组件", type: "lbt" },
-  { id: nanoid(), name: "基础组件", type: "yj" },
-  { id: nanoid(), name: "基础组件", type: "bg" },
-  { id: nanoid(), name: "基础组件", type: "yt" },
+interface ITemplate {
+  id: string;
+  name: string;
+  componentType: string;
+  componentName: string;
+}
+
+type ComponentListFn = (componentType?: string) => ITemplate[];
+
+const basic: ComponentListFn = (componentType = "Basics") => [
+  {
+    id: nanoid(),
+    name: "Mysql数据源",
+    componentType,
+    componentName: "MysqlDataSourceSelect",
+  },
+  {
+    id: nanoid(),
+    name: "App下载地址",
+    componentType,
+    componentName: "AppDownloadAddressInput",
+  },
 ];
 
-const tmpl = [
-  { id: nanoid(), name: "模板组件", type: "lbt" },
-  { id: nanoid(), name: "模板组件", type: "yj" },
-  { id: nanoid(), name: "模板组件", type: "bg" },
-  { id: nanoid(), name: "模板组件", type: "yt" },
-  { id: nanoid(), name: "模板组件", type: "lbt" },
-  { id: nanoid(), name: "模板组件", type: "yj" },
-  { id: nanoid(), name: "模板组件", type: "bg" },
-  { id: nanoid(), name: "模板组件", type: "yt" },
+const tmpl: ComponentListFn = (componentType = "Templates") => [
+  {
+    id: nanoid(),
+    name: "用户登录",
+    componentType,
+    componentName: "LoginForm",
+  },
 ];
 
-const business = [
-  { id: nanoid(), name: "业务组件", type: "lbt" },
-  { id: nanoid(), name: "业务组件", type: "yj" },
-  { id: nanoid(), name: "业务组件", type: "bg" },
-  { id: nanoid(), name: "业务组件", type: "yt" },
-  { id: nanoid(), name: "业务组件", type: "lbt" },
-  { id: nanoid(), name: "业务组件", type: "yj" },
-  { id: nanoid(), name: "业务组件", type: "bg" },
-  { id: nanoid(), name: "业务组件", type: "yt" },
+const business: ComponentListFn = (componentType = "Businesses") => [
+  {
+    id: nanoid(),
+    name: "Mysql数据源",
+    componentType,
+    componentName: "LoginForm",
+  },
 ];
 
 export enum Category {
   Basics = 0,
   Templates,
   Businesses,
-}
-
-interface ITemplate {
-  id: string;
-  name: string;
-  type: string;
 }
 
 type SelectedCallback = (selectedIndex: number) => void;
@@ -101,9 +104,9 @@ const H5Editor: React.FC<IH5EditorProps> = (props) => {
   const [currentIndex, setCurrentIndex] = useState(defaultIndex);
 
   const passedContext: IEditorContext = {
-    basics: basic,
-    templates: tmpl,
-    businesses: business,
+    basics: basic(),
+    templates: tmpl(),
+    businesses: business(),
     defaultCategory: Category.Basics,
     currentIndex: currentIndex,
     currentPreferences: currentPreferences ? currentPreferences : [],

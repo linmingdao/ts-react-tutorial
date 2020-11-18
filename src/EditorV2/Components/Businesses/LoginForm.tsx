@@ -6,7 +6,7 @@ const layout = {
   wrapperCol: { span: 24 },
 };
 
-const BasicForm: React.FC = () => {
+const LoginForm: React.FC = () => {
   const onFinish = (values: any) => {
     console.log("Success:", values);
   };
@@ -43,6 +43,6 @@ const BasicForm: React.FC = () => {
   );
 };
 
-BasicForm.displayName = "BasicForm";
+LoginForm.displayName = "LoginForm";
 
-export default BasicForm;
+export default LoginForm;
