@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { Button } from "antd";
-import { EditorContext } from "../index";
+import { EditorContext } from "./index";
 
 const Toolbar: React.FC = () => {
   const {

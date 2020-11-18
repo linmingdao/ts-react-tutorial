@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import { useDrop } from "react-dnd";
 import { EditorContext } from "../index";
-import BasicForm from "../Components/BasicForm";
+import BasicForm from "../Components/Templates/BasicForm";
 
 const Stage: React.FC = () => {
   const { currentPreferences, handleSelect } = useContext(EditorContext);
@@ -14,12 +14,17 @@ const Stage: React.FC = () => {
     }),
   });
 
+  // 高亮提示 开始拖拽 以及 可以完成拖拽放置
   const isActive = canDrop && isOver;
-  let backgroundColor = "#fff";
+  let backgroundColor = "#f3f2f2a3";
+  const $collaOutline: any = document.querySelector(".colla-outline");
+  $collaOutline && ($collaOutline.style["backgroundColor"] = backgroundColor);
   if (isActive) {
-    backgroundColor = "#ffa3a3";
+    backgroundColor = "#1890ff80";
+    $collaOutline && ($collaOutline.style["backgroundColor"] = backgroundColor);
   } else if (canDrop) {
-    backgroundColor = "#e2cfcf";
+    backgroundColor = "#1890ff5c";
+    $collaOutline && ($collaOutline.style["backgroundColor"] = backgroundColor);
   }
 
   function renderItem(item: any, index: number) {

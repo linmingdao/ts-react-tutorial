@@ -3,6 +3,7 @@ import { nanoid } from "nanoid";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import { DndProvider } from "react-dnd";
 import Editor from "./Editor";
+import "./index.css";
 
 const basic = [
   { id: nanoid(), name: "基础组件", type: "lbt" },

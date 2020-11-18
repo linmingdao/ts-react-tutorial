@@ -9,7 +9,11 @@ import List from "./List";
 import Item from "./Item";
 import { EditorContext } from "../index";
 
-const CategoryText = ["基础组件", "模板组件", "业务组件"];
+const MenuItems = [
+  { title: "基础组件", icon: <SettingOutlined translate="" /> },
+  { title: "模板组件", icon: <AppstoreOutlined translate="" /> },
+  { title: "业务组件", icon: <PieChartOutlined translate="" /> },
+];
 
 const Templates: React.FC = () => {
   const { defaultCategory, getCategoryComponents } = useContext(EditorContext);
@@ -29,21 +33,15 @@ const Templates: React.FC = () => {
         theme="light"
         inlineCollapsed
         onSelect={handleSelect}
-        style={{ height: "100%", width: 44 }}
+        style={{ height: "100%", width: 44, borderColor: "#dcdcdc" }}
         defaultSelectedKeys={["" + currentCategory]}
       >
-        <Menu.Item key="0" icon={<SettingOutlined translate="" />}>
-          {CategoryText[0]}
-        </Menu.Item>
-        <Menu.Item key="1" icon={<AppstoreOutlined translate="" />}>
-          {CategoryText[1]}
-        </Menu.Item>
-        <Menu.Item key="2" icon={<PieChartOutlined translate="" />}>
-          {CategoryText[2]}
-        </Menu.Item>
+        {MenuItems.map((item, index) => (
+          <Menu.Item key={index} icon={item.icon} />
+        ))}
       </Menu>
       <div className="category">
-        <div className="title">{CategoryText[currentCategory]}</div>
+        <div className="title">{MenuItems[currentCategory].title}</div>
         <List>
           {currentCategoryComponents.map((item: any) => (
             <Item key={item.id} config={item} />

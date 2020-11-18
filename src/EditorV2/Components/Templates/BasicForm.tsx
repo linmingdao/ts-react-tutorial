@@ -1,12 +1,9 @@
 import React from "react";
-import { Form, Input, Button, Checkbox } from "antd";
+import { Form, Input } from "antd";
 
 const layout = {
   labelCol: { span: 8 },
   wrapperCol: { span: 24 },
-};
-const tailLayout = {
-  wrapperCol: { offset: 8, span: 8 },
 };
 
 const BasicForm: React.FC = () => {
@@ -41,16 +38,6 @@ const BasicForm: React.FC = () => {
         rules={[{ required: true, message: "Please input your password!" }]}
       >
         <Input.Password />
-      </Form.Item>
-
-      <Form.Item {...tailLayout} name="remember" valuePropName="checked">
-        <Checkbox>Remember me</Checkbox>
-      </Form.Item>
-
-      <Form.Item {...tailLayout}>
-        <Button type="primary" htmlType="submit">
-          Submit
-        </Button>
       </Form.Item>
     </Form>
   );

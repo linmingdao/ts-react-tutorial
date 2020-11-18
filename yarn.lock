@@ -1547,6 +1547,11 @@
   dependencies:
     "@babel/types" "^7.3.0"
 
+"@types/classnames@^2.2.11":
+  version "2.2.11"
+  resolved "https://registry.npm.taobao.org/@types/classnames/download/@types/classnames-2.2.11.tgz#2521cc86f69d15c5b90664e4829d84566052c1cf"
+  integrity sha1-JSHMhvadFcW5BmTkgp2EVmBSwc8=
+
 "@types/d3-timer@^1.0.9":
   version "1.0.10"
   resolved "https://registry.npm.taobao.org/@types/d3-timer/download/@types/d3-timer-1.0.10.tgz#329c51c2c931f44ed0acff78b8c84571acf0ed21"
