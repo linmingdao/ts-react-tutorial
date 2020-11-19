@@ -25,6 +25,7 @@ const Toolbar: React.FC = () => {
       <Button type="link" onClick={() => handleReset && handleReset()}>
         重 置
       </Button>
+      <div style={{ width: 2, height: 20, backgroundColor: "#dedede" }}></div>
       <Button type="link" onClick={() => handleSave && handleSave()}>
         保存成模板
       </Button>

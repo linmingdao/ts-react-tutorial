@@ -8,14 +8,10 @@ const layout = {
 };
 
 const MysqlDataSourceSelect: React.FC = () => {
-  function handleChange(value: any) {
-    console.log(`selected ${value}`);
-  }
-
   return (
     <Form {...layout}>
       <Form.Item label="Mysql数据源" name="address">
-        <Select style={{ width: "100%" }} onChange={handleChange}>
+        <Select style={{ width: "100%" }}>
           <Option value="jack">Jack</Option>
           <Option value="lucy">Lucy</Option>
           <Option value="disabled" disabled>

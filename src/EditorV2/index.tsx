@@ -27,6 +27,30 @@ const basic: ComponentListFn = (componentType = "Basics") => [
     componentType,
     componentName: "AppDownloadAddressInput",
   },
+  {
+    id: nanoid(),
+    name: "App下载地址1",
+    componentType,
+    componentName: "AppDownloadAddressInput",
+  },
+  {
+    id: nanoid(),
+    name: "App下载地址2",
+    componentType,
+    componentName: "AppDownloadAddressInput",
+  },
+  {
+    id: nanoid(),
+    name: "App下载地址3",
+    componentType,
+    componentName: "AppDownloadAddressInput",
+  },
+  {
+    id: nanoid(),
+    name: "App下载地址4",
+    componentType,
+    componentName: "AppDownloadAddressInput",
+  },
 ];
 
 const tmpl: ComponentListFn = (componentType = "Templates") => [
@@ -36,14 +60,110 @@ const tmpl: ComponentListFn = (componentType = "Templates") => [
     componentType,
     componentName: "LoginForm",
   },
+  {
+    id: nanoid(),
+    name: "找回密码",
+    componentType,
+    componentName: "ForgottenPassword",
+  },
+  {
+    id: nanoid(),
+    name: "找回密码",
+    componentType,
+    componentName: "ForgottenPassword",
+  },
+  {
+    id: nanoid(),
+    name: "找回密码",
+    componentType,
+    componentName: "ForgottenPassword",
+  },
+  {
+    id: nanoid(),
+    name: "找回密码",
+    componentType,
+    componentName: "ForgottenPassword",
+  },
+  {
+    id: nanoid(),
+    name: "找回密码",
+    componentType,
+    componentName: "ForgottenPassword",
+  },
+  {
+    id: nanoid(),
+    name: "找回密码",
+    componentType,
+    componentName: "ForgottenPassword",
+  },
+  {
+    id: nanoid(),
+    name: "找回密码",
+    componentType,
+    componentName: "ForgottenPassword",
+  },
 ];
 
 const business: ComponentListFn = (componentType = "Businesses") => [
   {
     id: nanoid(),
-    name: "Mysql数据源",
+    name: "EC2机器申请",
     componentType,
-    componentName: "LoginForm",
+    componentName: "EC2Machine",
+  },
+  {
+    id: nanoid(),
+    name: "Apollo配置操作",
+    componentType,
+    componentName: "ApolloConfig",
+  },
+  {
+    id: nanoid(),
+    name: "EC2机器申请",
+    componentType,
+    componentName: "EC2Machine",
+  },
+  {
+    id: nanoid(),
+    name: "Apollo配置操作",
+    componentType,
+    componentName: "ApolloConfig",
+  },
+  {
+    id: nanoid(),
+    name: "EC2机器申请",
+    componentType,
+    componentName: "EC2Machine",
+  },
+  {
+    id: nanoid(),
+    name: "Apollo配置操作",
+    componentType,
+    componentName: "ApolloConfig",
+  },
+  {
+    id: nanoid(),
+    name: "EC2机器申请",
+    componentType,
+    componentName: "EC2Machine",
+  },
+  {
+    id: nanoid(),
+    name: "Apollo配置操作",
+    componentType,
+    componentName: "ApolloConfig",
+  },
+  {
+    id: nanoid(),
+    name: "EC2机器申请",
+    componentType,
+    componentName: "EC2Machine",
+  },
+  {
+    id: nanoid(),
+    name: "Apollo配置操作",
+    componentType,
+    componentName: "ApolloConfig",
   },
 ];
 

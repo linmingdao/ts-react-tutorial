@@ -2,42 +2,19 @@ import React from "react";
 import { Form, Input } from "antd";
 
 const layout = {
-  labelCol: { span: 8 },
-  wrapperCol: { span: 24 },
+  labelCol: { span: 6 },
+  wrapperCol: { span: 18 },
 };
 
 const LoginForm: React.FC = () => {
-  const onFinish = (values: any) => {
-    console.log("Success:", values);
-  };
-
-  const onFinishFailed = (errorInfo: any) => {
-    console.log("Failed:", errorInfo);
-  };
-
   return (
-    <Form
-      {...layout}
-      layout="vertical"
-      name="basic"
-      initialValues={{ remember: true }}
-      onFinish={onFinish}
-      onFinishFailed={onFinishFailed}
-    >
-      <Form.Item
-        label="Username"
-        name="username"
-        rules={[{ required: true, message: "Please input your username!" }]}
-      >
-        <Input />
+    <Form {...layout}>
+      <Form.Item label="用户名" name="username">
+        <Input placeholder="请输入用户名" />
       </Form.Item>
 
-      <Form.Item
-        label="Password"
-        name="password"
-        rules={[{ required: true, message: "Please input your password!" }]}
-      >
-        <Input.Password />
+      <Form.Item label="密码" name="password">
+        <Input.Password placeholder="请输入密码" />
       </Form.Item>
     </Form>
   );
