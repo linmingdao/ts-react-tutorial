@@ -14,7 +14,6 @@ import "./App.css";
 // import ReactSortableHocDemo from "./ReactSortableHocDemo/index.jsx";
 // import ReactDndSortableDemo from "./ReactDndSortableDemo";
 // import H5EditorDemo from "./H5EditorDemo";
-import EditorV2 from "./H5Editor";
 
 interface IShowResult {
   message: string;
@@ -44,7 +43,6 @@ const App: React.FC = () => {
     <div className="App">
       <ThemeContext.Provider value={themes.dark}>
         <header className="App-header">
-          <EditorV2 />
           {/* <H5EditorDemo />
           <ReactDndSortableDemo />
           <ReactSortableHocDemo />

@@ -1,9 +1,15 @@
-import React, { useMemo, memo, FC } from "react";
+import React, { useMemo, memo, FC, useContext } from "react";
 import Loadable from "react-loadable";
+import { EditorContext } from "./index";
 
-const DynamicFunc = (componentType: string, componentName: string) => {
+const DynamicFunc = (
+  loader: any,
+  componentType: string,
+  componentName: string
+) => {
+  console.log(componentName);
   return Loadable({
-    loader: () => import(`${componentType}/${componentName}`),
+    loader: loader(componentName),
     loading() {
       return <div>Loading...</div>;
     },
@@ -16,9 +22,10 @@ type DynamicType = {
 };
 
 const DynamicEngine = memo((props: DynamicType) => {
+  const { loader } = useContext(EditorContext);
   const { componentType, componentName } = props;
   const Dynamic = useMemo(() => {
-    return (DynamicFunc(componentType, componentName) as unknown) as FC<
+    return (DynamicFunc(loader, componentType, componentName) as unknown) as FC<
       DynamicType
     >;
     // eslint-disable-next-line react-hooks/exhaustive-deps

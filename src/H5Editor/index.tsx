@@ -5,7 +5,7 @@ import { DndProvider } from "react-dnd";
 import Editor from "./Editor";
 import "./index.css";
 
-interface ITemplate {
+export interface ITemplate {
   id: string;
   name: string;
   componentType: string;
@@ -14,44 +14,44 @@ interface ITemplate {
 
 type ComponentListFn = (componentType?: string) => ITemplate[];
 
-const basic: ComponentListFn = (componentType = "Basics") => [
-  {
-    id: nanoid(),
-    name: "Mysql数据源",
-    componentType,
-    componentName: "MysqlDataSourceSelect",
-  },
-  {
-    id: nanoid(),
-    name: "App下载地址",
-    componentType,
-    componentName: "AppDownloadAddressInput",
-  },
-  {
-    id: nanoid(),
-    name: "App下载地址1",
-    componentType,
-    componentName: "AppDownloadAddressInput",
-  },
-  {
-    id: nanoid(),
-    name: "App下载地址2",
-    componentType,
-    componentName: "AppDownloadAddressInput",
-  },
-  {
-    id: nanoid(),
-    name: "App下载地址3",
-    componentType,
-    componentName: "AppDownloadAddressInput",
-  },
-  {
-    id: nanoid(),
-    name: "App下载地址4",
-    componentType,
-    componentName: "AppDownloadAddressInput",
-  },
-];
+// const basic: ComponentListFn = (componentType = "Basics") => [
+//   {
+//     id: nanoid(),
+//     name: "Mysql数据源",
+//     componentType,
+//     componentName: "MysqlDataSourceSelect",
+//   },
+//   {
+//     id: nanoid(),
+//     name: "App下载地址",
+//     componentType,
+//     componentName: "AppDownloadAddressInput",
+//   },
+//   {
+//     id: nanoid(),
+//     name: "App下载地址1",
+//     componentType,
+//     componentName: "AppDownloadAddressInput",
+//   },
+//   {
+//     id: nanoid(),
+//     name: "App下载地址2",
+//     componentType,
+//     componentName: "AppDownloadAddressInput",
+//   },
+//   {
+//     id: nanoid(),
+//     name: "App下载地址3",
+//     componentType,
+//     componentName: "AppDownloadAddressInput",
+//   },
+//   {
+//     id: nanoid(),
+//     name: "App下载地址4",
+//     componentType,
+//     componentName: "AppDownloadAddressInput",
+//   },
+// ];
 
 const tmpl: ComponentListFn = (componentType = "Templates") => [
   {
@@ -178,6 +178,7 @@ type SelectedCallbackRetList = (selectedIndex: number) => any[];
 type NoSelectedCallback = () => void;
 
 interface IEditorContext {
+  loader: (name: string) => any;
   basics: ITemplate[];
   templates: ITemplate[];
   businesses: ITemplate[];
@@ -197,6 +198,7 @@ interface IEditorContext {
 }
 
 export const EditorContext = React.createContext<IEditorContext>({
+  loader: (name) => [],
   getCategoryComponents() {
     return [];
   },
@@ -209,6 +211,9 @@ export const EditorContext = React.createContext<IEditorContext>({
 });
 
 interface IH5EditorProps {
+  loader: (name: string) => any;
+  basics: ITemplate[];
+  save?: () => void;
   defaultPreferences?: any[];
   defaultIndex?: number;
   onChange?: NoSelectedCallback;
@@ -217,14 +222,15 @@ interface IH5EditorProps {
 }
 
 const H5Editor: React.FC<IH5EditorProps> = (props) => {
-  const { defaultPreferences, defaultIndex } = props;
+  const { loader, basics, defaultPreferences, defaultIndex } = props;
   const [currentPreferences, setCurrentPreferences] = useState(
     defaultPreferences
   );
   const [currentIndex, setCurrentIndex] = useState(defaultIndex);
 
   const passedContext: IEditorContext = {
-    basics: basic(),
+    loader,
+    basics,
     templates: tmpl(),
     businesses: business(),
     defaultCategory: Category.Basics,

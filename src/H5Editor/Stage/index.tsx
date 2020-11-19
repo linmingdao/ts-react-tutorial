@@ -2,7 +2,8 @@ import React, { useContext, useCallback } from "react";
 import { useDrop } from "react-dnd";
 import { EditorContext } from "../index";
 import SortableItem from "./SortableItem";
-import DynamicEngine from "../Components/DynamicEngine";
+// import DynamicEngine from "../Components/DynamicEngine";
+import DynamicEngine from "../DynamicEngine";
 
 const Stage: React.FC = () => {
   const { currentPreferences, handleSelect } = useContext(EditorContext);
