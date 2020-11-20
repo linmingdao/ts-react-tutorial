@@ -1,29 +1,27 @@
 import React, { useContext, useState } from "react";
+import { SettingOutlined } from "@ant-design/icons";
 import { Menu } from "antd";
-import {
-  AppstoreOutlined,
-  SettingOutlined,
-  PieChartOutlined,
-} from "@ant-design/icons";
 import List from "./List";
 import Item from "./Item";
 import { EditorContext } from "../index";
-
-const MenuItems = [
-  { title: "基础组件", icon: <SettingOutlined translate="" /> },
-  { title: "模板组件", icon: <AppstoreOutlined translate="" /> },
-  { title: "业务组件", icon: <PieChartOutlined translate="" /> },
-];
+import { UniformTmplGroupList } from "../types";
+import { getUniformTmplGroupList } from "../helper";
 
 const Templates: React.FC = () => {
-  const { defaultCategory, getCategoryComponents } = useContext(EditorContext);
-  const [currentCategory, setCurrentCategory] = useState(defaultCategory);
-  const [currentCategoryComponents, setCurrentCategoryComponents] = useState(
-    getCategoryComponents(currentCategory)
+  const { brickTemplate, buildingTemplateGroupList } = useContext(
+    EditorContext
+  );
+  const tmplGroupList: UniformTmplGroupList = getUniformTmplGroupList(
+    brickTemplate,
+    buildingTemplateGroupList
+  );
+  const [currentGroupIndex, setCurrentGroupIndex] = useState(0);
+  const [currentComponents, setCurrentComponents] = useState(
+    tmplGroupList[0]["components"]
   );
   const handleSelect = (item: any) => {
-    setCurrentCategory(Number(item.key));
-    setCurrentCategoryComponents(getCategoryComponents(Number(item.key)));
+    setCurrentGroupIndex(item.key);
+    setCurrentComponents(tmplGroupList[item.key]["components"]);
   };
 
   return (
@@ -34,17 +32,20 @@ const Templates: React.FC = () => {
         inlineCollapsed
         onSelect={handleSelect}
         style={{ height: "100%", width: 44, borderColor: "#dcdcdc" }}
-        defaultSelectedKeys={["" + currentCategory]}
+        defaultSelectedKeys={["0"]}
       >
-        {MenuItems.map((item, index) => (
-          <Menu.Item key={index} icon={item.icon} />
+        {tmplGroupList.map((item, index) => (
+          <Menu.Item
+            key={index}
+            icon={item.icon ? item.icon : <SettingOutlined translate="" />}
+          />
         ))}
       </Menu>
       <div className="category">
-        <div className="title">{MenuItems[currentCategory].title}</div>
+        <div className="title">{tmplGroupList[currentGroupIndex]["title"]}</div>
         <List>
-          {currentCategoryComponents.map((item: any) => (
-            <Item key={item.id} config={item} />
+          {currentComponents.map((item: any) => (
+            <Item key={item.name} config={item} />
           ))}
         </List>
       </div>

@@ -2,13 +2,17 @@ import React from "react";
 import "antd/dist/antd.css";
 import "./App.css";
 import H5Editor from "./H5Editor";
-import { nanoid } from "nanoid";
-import { ITemplate } from "./H5Editor/index";
+import {
+  AppstoreOutlined,
+  SettingOutlined,
+  PieChartOutlined,
+} from "@ant-design/icons";
+
+// label, field, type(antd对应的基础表单组件 和 自定义的业务组件)，必填，palceholder，value
 
 interface IThemeProps {
   [key: string]: { color: string; background: string };
 }
-
 const themes: IThemeProps = {
   light: {
     color: "#000",
@@ -19,37 +23,93 @@ const themes: IThemeProps = {
     background: "#222",
   },
 };
-
 export const ThemeContext = React.createContext(themes.light);
-
-const basics: ITemplate[] = [
-  {
-    id: nanoid(),
-    name: "Mysql数据源",
-    componentType: "Basics",
-    componentName: "MysqlDataSourceSelect",
-  },
-  {
-    id: nanoid(),
-    name: "App下载地址",
-    componentType: "Basics",
-    componentName: "AppDownloadAddressInput",
-  },
-];
 
 const App: React.FC = () => {
   return (
     <div className="App">
       <ThemeContext.Provider value={themes.dark}>
         <header className="App-header">
-          {/* 1 基础组件注入，这个是存在于各自项目的基础组件集合 */}
-          {/* 2 由基础组件生成的模板、业务组件，这个需要远程拉取 JSON 信息，所以需要提供一个专门把 JSON 数据转成 组件的模块 */}
           <H5Editor
-            loader={(name: string) => () => import(`./BasicComponents/${name}`)}
-            basics={basics}
-            save={() => {
-              console.log("call save handler");
+            brickTemplate={{
+              icon: <SettingOutlined translate="" />,
+              loader: (name: string) => () =>
+                import(`./BasicComponents/${name}/Stage`),
+              getComponents: () => [
+                {
+                  label: "Mysql数据源",
+                  name: "MysqlDataSourceSelect",
+                  props: {
+                    label: "jjjj",
+                    value: "",
+                    placeholder: "哈哈我额",
+                  },
+                },
+                {
+                  label: "App下载地址",
+                  name: "AppDownloadAddressInput",
+                },
+                {
+                  label: "用户名",
+                  name: "UserName",
+                },
+                {
+                  label: "用户密码",
+                  name: "UserPassword",
+                },
+              ],
             }}
+            buildingTemplateGroupList={[
+              {
+                icon: <AppstoreOutlined translate="" />,
+                group: "Templates",
+                title: "模板组件",
+                getComponents: () => [
+                  {
+                    id: "232nobi13o1234n",
+                    label: "用户登录",
+                    composes: [
+                      { type: "Bricks:UserName" },
+                      { type: "Bricks:UserPassword" },
+                    ],
+                  },
+                  {
+                    id: "839sjwwl2ll24nn",
+                    label: "确认密码",
+                    composes: [
+                      { type: "Bricks:UserPassword" },
+                      { type: "Bricks:UserPassword" },
+                    ],
+                  },
+                ],
+                updateComponents: () => {},
+              },
+              {
+                icon: <PieChartOutlined translate="" />,
+                group: "Businesses",
+                title: "业务组件",
+                getComponents: () => [
+                  {
+                    id: "ew892jlasdl2229jj2",
+                    label: "设置下载地址",
+                    composes: [
+                      { type: "Bricks:AppDownloadAddressInput" },
+                      { type: "Templates:232nobi13o1234n" },
+                    ],
+                  },
+                  {
+                    id: "fakks2325landsawl22",
+                    label: "设置Apollo数据源",
+                    composes: [
+                      { type: "Bricks:MysqlDataSourceSelect" },
+                      { type: "Templates:232nobi13o1234n" },
+                      { type: "Businesses:ew892jlasdl2229jj2" },
+                    ],
+                  },
+                ],
+                updateComponents: () => {},
+              },
+            ]}
           />
         </header>
       </ThemeContext.Provider>

@@ -3,265 +3,31 @@ import { nanoid } from "nanoid";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import { DndProvider } from "react-dnd";
 import Editor from "./Editor";
+import { H5EditorProps, H5EditorContext, StageItem } from "./types";
 import "./index.css";
 
-export interface ITemplate {
-  id: string;
-  name: string;
-  componentType: string;
-  componentName: string;
-}
-
-type ComponentListFn = (componentType?: string) => ITemplate[];
-
-// const basic: ComponentListFn = (componentType = "Basics") => [
-//   {
-//     id: nanoid(),
-//     name: "Mysql数据源",
-//     componentType,
-//     componentName: "MysqlDataSourceSelect",
-//   },
-//   {
-//     id: nanoid(),
-//     name: "App下载地址",
-//     componentType,
-//     componentName: "AppDownloadAddressInput",
-//   },
-//   {
-//     id: nanoid(),
-//     name: "App下载地址1",
-//     componentType,
-//     componentName: "AppDownloadAddressInput",
-//   },
-//   {
-//     id: nanoid(),
-//     name: "App下载地址2",
-//     componentType,
-//     componentName: "AppDownloadAddressInput",
-//   },
-//   {
-//     id: nanoid(),
-//     name: "App下载地址3",
-//     componentType,
-//     componentName: "AppDownloadAddressInput",
-//   },
-//   {
-//     id: nanoid(),
-//     name: "App下载地址4",
-//     componentType,
-//     componentName: "AppDownloadAddressInput",
-//   },
-// ];
-
-const tmpl: ComponentListFn = (componentType = "Templates") => [
-  {
-    id: nanoid(),
-    name: "用户登录",
-    componentType,
-    componentName: "LoginForm",
+export const EditorContext = React.createContext<H5EditorContext>({
+  brickTemplate: {
+    loader: (name: string) => [],
   },
-  {
-    id: nanoid(),
-    name: "找回密码",
-    componentType,
-    componentName: "ForgottenPassword",
-  },
-  {
-    id: nanoid(),
-    name: "找回密码",
-    componentType,
-    componentName: "ForgottenPassword",
-  },
-  {
-    id: nanoid(),
-    name: "找回密码",
-    componentType,
-    componentName: "ForgottenPassword",
-  },
-  {
-    id: nanoid(),
-    name: "找回密码",
-    componentType,
-    componentName: "ForgottenPassword",
-  },
-  {
-    id: nanoid(),
-    name: "找回密码",
-    componentType,
-    componentName: "ForgottenPassword",
-  },
-  {
-    id: nanoid(),
-    name: "找回密码",
-    componentType,
-    componentName: "ForgottenPassword",
-  },
-  {
-    id: nanoid(),
-    name: "找回密码",
-    componentType,
-    componentName: "ForgottenPassword",
-  },
-];
-
-const business: ComponentListFn = (componentType = "Businesses") => [
-  {
-    id: nanoid(),
-    name: "EC2机器申请",
-    componentType,
-    componentName: "EC2Machine",
-  },
-  {
-    id: nanoid(),
-    name: "Apollo配置操作",
-    componentType,
-    componentName: "ApolloConfig",
-  },
-  {
-    id: nanoid(),
-    name: "EC2机器申请",
-    componentType,
-    componentName: "EC2Machine",
-  },
-  {
-    id: nanoid(),
-    name: "Apollo配置操作",
-    componentType,
-    componentName: "ApolloConfig",
-  },
-  {
-    id: nanoid(),
-    name: "EC2机器申请",
-    componentType,
-    componentName: "EC2Machine",
-  },
-  {
-    id: nanoid(),
-    name: "Apollo配置操作",
-    componentType,
-    componentName: "ApolloConfig",
-  },
-  {
-    id: nanoid(),
-    name: "EC2机器申请",
-    componentType,
-    componentName: "EC2Machine",
-  },
-  {
-    id: nanoid(),
-    name: "Apollo配置操作",
-    componentType,
-    componentName: "ApolloConfig",
-  },
-  {
-    id: nanoid(),
-    name: "EC2机器申请",
-    componentType,
-    componentName: "EC2Machine",
-  },
-  {
-    id: nanoid(),
-    name: "Apollo配置操作",
-    componentType,
-    componentName: "ApolloConfig",
-  },
-];
-
-export enum Category {
-  Basics = 0,
-  Templates,
-  Businesses,
-}
-
-type SelectedCallback = (selectedIndex: number) => void;
-type SelectedCallbackRetList = (selectedIndex: number) => any[];
-type NoSelectedCallback = () => void;
-
-interface IEditorContext {
-  loader: (name: string) => any;
-  basics: ITemplate[];
-  templates: ITemplate[];
-  businesses: ITemplate[];
-  defaultCategory: Category;
-  currentIndex?: number;
-  currentPreferences: any[];
-  getCategoryComponents: SelectedCallbackRetList;
-  handleDrop?: (item: any) => void;
-  handleCopy?: SelectedCallback;
-  handleRemove?: SelectedCallback;
-  handleSelect?: SelectedCallback;
-  handleClear?: NoSelectedCallback;
-  handleReset?: NoSelectedCallback;
-  handleUndo?: NoSelectedCallback;
-  handleRedo?: NoSelectedCallback;
-  handleSave?: NoSelectedCallback;
-}
-
-export const EditorContext = React.createContext<IEditorContext>({
-  loader: (name) => [],
-  getCategoryComponents() {
-    return [];
-  },
-  defaultCategory: Category.Basics,
-  basics: [],
-  templates: [],
-  businesses: [],
-  currentIndex: 0,
-  currentPreferences: [],
+  buildingTemplateGroupList: [],
+  stageItemList: [],
 });
 
-interface IH5EditorProps {
-  loader: (name: string) => any;
-  basics: ITemplate[];
-  save?: () => void;
-  defaultPreferences?: any[];
-  defaultIndex?: number;
-  onChange?: NoSelectedCallback;
-  className?: string;
-  style?: React.CSSProperties;
-}
-
-const H5Editor: React.FC<IH5EditorProps> = (props) => {
-  const { loader, basics, defaultPreferences, defaultIndex } = props;
-  const [currentPreferences, setCurrentPreferences] = useState(
-    defaultPreferences
-  );
-  const [currentIndex, setCurrentIndex] = useState(defaultIndex);
-
-  const passedContext: IEditorContext = {
-    loader,
-    basics,
-    templates: tmpl(),
-    businesses: business(),
-    defaultCategory: Category.Basics,
-    currentIndex: currentIndex,
-    currentPreferences: currentPreferences ? currentPreferences : [],
-    getCategoryComponents(category: number) {
-      switch (category) {
-        case Category.Basics:
-          return passedContext.basics;
-
-        case Category.Templates:
-          return passedContext.templates;
-        case Category.Businesses:
-          return passedContext.businesses;
-        default:
-          return [];
-      }
+const H5Editor: React.FC<H5EditorProps> = ({
+  brickTemplate,
+  buildingTemplateGroupList,
+}) => {
+  const [stageItemList, setStageItemList] = useState([] as StageItem[]);
+  const passedContext: H5EditorContext = {
+    brickTemplate,
+    buildingTemplateGroupList,
+    stageItemList,
+    handleDrop(item) {
+      console.log(item);
+      setStageItemList([...stageItemList, { ...item, id: nanoid() }]);
     },
-    handleDrop(item: any) {
-      if (currentPreferences) {
-        setCurrentPreferences([
-          ...currentPreferences,
-          { ...item, id: nanoid() },
-        ]);
-      } else {
-        setCurrentPreferences([{ ...item, id: nanoid() }]);
-      }
-    },
-    handleSelect(selectedIndex: number) {
-      setCurrentIndex(selectedIndex);
-    },
+    handleSelect(selectedIndex: number) {},
     handleCopy(selectedIndex: number) {
       console.log("handleCopy", "selectedIndex", selectedIndex);
     },
@@ -269,8 +35,7 @@ const H5Editor: React.FC<IH5EditorProps> = (props) => {
       console.log("handleRemove", "selectedIndex", selectedIndex);
     },
     handleClear() {
-      console.log("handleClear");
-      setCurrentPreferences([]);
+      setStageItemList([]);
     },
     handleReset() {
       console.log("handleReset");

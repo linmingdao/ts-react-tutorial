@@ -6,20 +6,16 @@ const layout = {
   wrapperCol: { span: 18 },
 };
 
-const LoginForm: React.FC = () => {
+const UserName: React.FC = () => {
   return (
     <Form {...layout}>
       <Form.Item label="用户名" name="username">
         <Input placeholder="请输入用户名" />
       </Form.Item>
-
-      <Form.Item label="密码" name="password">
-        <Input.Password placeholder="请输入密码" />
-      </Form.Item>
     </Form>
   );
 };
 
-LoginForm.displayName = "LoginForm";
+UserName.displayName = "UserName";
 
-export default LoginForm;
+export default UserName;

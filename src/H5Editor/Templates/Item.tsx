@@ -4,7 +4,7 @@ import { EditorContext } from "../index";
 
 interface Config {
   id: string;
-  name: string;
+  label: string;
   type: string;
 }
 
@@ -13,13 +13,13 @@ interface ItemProps {
 }
 
 const Item: React.FC<ItemProps> = (props) => {
-  const { name } = props.config;
+  const { label } = props.config;
   const { handleDrop } = useContext(EditorContext);
 
   const [{ isDragging }, drag] = useDrag({
-    item: { name, type: "TemplateItem", config: props.config },
+    item: { label, type: "TemplateItem", config: props.config },
     end: (
-      item: { name: string; type: string; config: any } | undefined,
+      item: { label: string; type: string; config: any } | undefined,
       monitor: DragSourceMonitor
     ) => {
       const dropResult = monitor.getDropResult();
@@ -35,7 +35,7 @@ const Item: React.FC<ItemProps> = (props) => {
   return (
     <div ref={drag} className="item" style={{ opacity: isDragging ? 0.3 : 1 }}>
       <div className="preview"></div>
-      <div className="name">{name}</div>
+      <div className="name">{label}</div>
     </div>
   );
 };

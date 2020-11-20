@@ -7,7 +7,6 @@ const DynamicFunc = (
   componentType: string,
   componentName: string
 ) => {
-  console.log(componentName);
   return Loadable({
     loader: loader(componentName),
     loading() {
@@ -22,14 +21,17 @@ type DynamicType = {
 };
 
 const DynamicEngine = memo((props: DynamicType) => {
-  const { loader } = useContext(EditorContext);
-  const { componentType, componentName } = props;
+  const { brickTemplate } = useContext(EditorContext);
+  const { loader } = brickTemplate;
+  const { componentType, componentName, ...restProps } = props;
   const Dynamic = useMemo(() => {
     return (DynamicFunc(loader, componentType, componentName) as unknown) as FC<
       DynamicType
     >;
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  console.log(restProps);
 
   return <Dynamic {...props} />;
 });

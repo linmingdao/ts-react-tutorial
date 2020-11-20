@@ -24,20 +24,32 @@ const selectAfter = (
   </Select>
 );
 
-const AppDownloadAddressInput: React.FC = () => {
+interface StageProps {
+  label?: string;
+  name?: string;
+  placeholder?: string;
+}
+
+const Stage: React.FC<StageProps> = ({ label, name, placeholder }) => {
   return (
     <Form {...layout}>
-      <Form.Item label="应用下载地址" name="address">
+      <Form.Item label={label} name={name}>
         <Input
           addonBefore={selectBefore}
           addonAfter={selectAfter}
-          placeholder="Please input app address"
+          placeholder={placeholder}
         />
       </Form.Item>
     </Form>
   );
 };
 
-AppDownloadAddressInput.displayName = "AppDownloadAddressInput";
+Stage.defaultProps = {
+  label: "应用下载地址",
+  name: "address",
+  placeholder: "Please input app address",
+};
 
-export default AppDownloadAddressInput;
+Stage.displayName = "Stage";
+
+export default Stage;

@@ -2,11 +2,10 @@ import React, { useContext, useCallback } from "react";
 import { useDrop } from "react-dnd";
 import { EditorContext } from "../index";
 import SortableItem from "./SortableItem";
-// import DynamicEngine from "../Components/DynamicEngine";
 import DynamicEngine from "../DynamicEngine";
 
 const Stage: React.FC = () => {
-  const { currentPreferences, handleSelect } = useContext(EditorContext);
+  const { stageItemList, handleSelect } = useContext(EditorContext);
   const [{ canDrop, isOver }, drop] = useDrop({
     accept: "TemplateItem",
     drop: () => ({ name: "LayoutEditor" }),
@@ -36,6 +35,7 @@ const Stage: React.FC = () => {
 
   function renderItem(item: any, index: number) {
     // onClick={() => handleSelect && handleSelect(index)}
+    console.log(item);
     return (
       <SortableItem
         key={item.id}
@@ -44,8 +44,9 @@ const Stage: React.FC = () => {
         moveFormItem={moveFormItem}
       >
         <DynamicEngine
-          componentType={item.componentType}
-          componentName={item.componentName}
+          componentType={item.type}
+          componentName={item.name}
+          {...item.props}
         />
       </SortableItem>
     );
@@ -53,7 +54,7 @@ const Stage: React.FC = () => {
 
   return (
     <div ref={drop} className="stage" style={{ backgroundColor }}>
-      {currentPreferences.map((item, index) => renderItem(item, index))}
+      {stageItemList.map((item, index) => renderItem(item, index))}
     </div>
   );
 };
