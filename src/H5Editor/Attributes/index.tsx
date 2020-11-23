@@ -1,6 +1,7 @@
-import React, { CSSProperties } from "react";
+import React, { CSSProperties, useContext } from "react";
 import classnames from "classnames";
-import { Row, Col, Input } from "antd";
+import { EditorContext } from "../index";
+import DynamicEngine from "../DynamicEngine";
 
 interface IAttributes {
   collapse: boolean;
@@ -10,92 +11,40 @@ interface IAttributes {
 
 const Attributes: React.FC<IAttributes> = (props) => {
   const className = classnames("attributes", { collapse: !props.collapse });
+  const {
+    currentIndex,
+    currentProps,
+    stageItemList,
+    handlePropsChange,
+  } = useContext(EditorContext);
+
+  function renderAttr() {
+    function handleValuesChange(changedValues: any, allValues: any) {
+      handlePropsChange &&
+        handlePropsChange(changedValues, allValues, currentIndex);
+    }
+
+    const config = stageItemList[currentIndex];
+    return config ? (
+      <div>
+        <DynamicEngine
+          key={currentIndex}
+          componentType="Bricks"
+          componentName={config.name}
+          mode="attr"
+          {...currentProps}
+          onValuesChange={handleValuesChange}
+        />
+      </div>
+    ) : (
+      <div></div>
+    );
+  }
 
   return (
     <div className={className}>
       <div className="title">属性设置</div>
-      <div className="list">
-        <Row gutter={[0, 10]}>
-          <Col span={12} className="left-col">
-            用户名Tips
-          </Col>
-          <Col span={12} className="right-col">
-            <Input placeholder="请输入" style={{ width: 120 }} />
-          </Col>
-        </Row>
-        <Row gutter={[0, 10]}>
-          <Col span={12} className="left-col">
-            密码Tips
-          </Col>
-          <Col span={12} className="right-col">
-            <Input placeholder="请输入" style={{ width: 120 }} />
-          </Col>
-        </Row>
-        <Row gutter={[0, 10]}>
-          <Col span={12} className="left-col">
-            用户名Tips
-          </Col>
-          <Col span={12} className="right-col">
-            <Input placeholder="请输入" style={{ width: 120 }} />
-          </Col>
-        </Row>
-        <Row gutter={[0, 10]}>
-          <Col span={12} className="left-col">
-            密码Tips
-          </Col>
-          <Col span={12} className="right-col">
-            <Input placeholder="请输入" style={{ width: 120 }} />
-          </Col>
-        </Row>
-        <Row gutter={[0, 10]}>
-          <Col span={12} className="left-col">
-            用户名Tips
-          </Col>
-          <Col span={12} className="right-col">
-            <Input placeholder="请输入" style={{ width: 120 }} />
-          </Col>
-        </Row>
-        <Row gutter={[0, 10]}>
-          <Col span={12} className="left-col">
-            密码Tips
-          </Col>
-          <Col span={12} className="right-col">
-            <Input placeholder="请输入" style={{ width: 120 }} />
-          </Col>
-        </Row>
-        <Row gutter={[0, 10]}>
-          <Col span={12} className="left-col">
-            用户名Tips
-          </Col>
-          <Col span={12} className="right-col">
-            <Input placeholder="请输入" style={{ width: 120 }} />
-          </Col>
-        </Row>
-        <Row gutter={[0, 10]}>
-          <Col span={12} className="left-col">
-            密码Tips
-          </Col>
-          <Col span={12} className="right-col">
-            <Input placeholder="请输入" style={{ width: 120 }} />
-          </Col>
-        </Row>
-        <Row gutter={[0, 10]}>
-          <Col span={12} className="left-col">
-            用户名Tips
-          </Col>
-          <Col span={12} className="right-col">
-            <Input placeholder="请输入" style={{ width: 120 }} />
-          </Col>
-        </Row>
-        <Row gutter={[0, 10]}>
-          <Col span={12} className="left-col">
-            密码Tips
-          </Col>
-          <Col span={12} className="right-col">
-            <Input placeholder="请输入" style={{ width: 120 }} />
-          </Col>
-        </Row>
-      </div>
+      <div className="list">{renderAttr()}</div>
     </div>
   );
 };

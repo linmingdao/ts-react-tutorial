@@ -5,7 +5,12 @@ import SortableItem from "./SortableItem";
 import DynamicEngine from "../DynamicEngine";
 
 const Stage: React.FC = () => {
-  const { stageItemList, handleSelect } = useContext(EditorContext);
+  const {
+    stageItemList,
+    currentProps,
+    handleSelect,
+    handlePropsChange,
+  } = useContext(EditorContext);
   const [{ canDrop, isOver }, drop] = useDrop({
     accept: "TemplateItem",
     drop: () => ({ name: "LayoutEditor" }),
@@ -34,19 +39,25 @@ const Stage: React.FC = () => {
   }, []);
 
   function renderItem(item: any, index: number) {
-    // onClick={() => handleSelect && handleSelect(index)}
-    console.log(item);
+    function handleValuesChange(changedValues: any, allValues: any) {
+      handlePropsChange && handlePropsChange(changedValues, allValues, index);
+    }
+
     return (
       <SortableItem
         key={item.id}
         id={item.id}
         index={index}
         moveFormItem={moveFormItem}
+        onClick={() => handleSelect && handleSelect(index)}
       >
         <DynamicEngine
           componentType={item.type}
           componentName={item.name}
+          mode="stage"
+          onValuesChange={handleValuesChange}
           {...item.props}
+          {...currentProps}
         />
       </SortableItem>
     );

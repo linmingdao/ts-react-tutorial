@@ -45,6 +45,13 @@ export interface H5EditorContext {
   brickTemplate: BrickTemplate;
   buildingTemplateGroupList: BuildingTemplateGroupList;
   stageItemList: StageItem[];
+  currentIndex: number;
+  currentProps: any;
+  handlePropsChange?: (
+    changedValues: any,
+    allValues: any,
+    selectedIndex: number
+  ) => void;
   handleDrop?: (item: any) => void;
   handleCopy?: SelectedCallback;
   handleRemove?: SelectedCallback;
@@ -59,4 +66,9 @@ export interface H5EditorContext {
 export interface StageItem {
   id: string;
   name: string;
+  props: any;
+}
+
+export interface BrickSchema {
+  onAttributesChange: (attrs: any) => void;
 }

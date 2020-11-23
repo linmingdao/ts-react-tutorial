@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { HTMLAttributes, useRef } from "react";
 import { useDrag, useDrop, DropTargetMonitor } from "react-dnd";
 import { XYCoord } from "dnd-core";
 
@@ -6,6 +6,7 @@ export interface ISortableItemProps {
   id: any;
   index: number;
   moveFormItem: (dragIndex: number, hoverIndex: number) => void;
+  onClick?: () => void;
 }
 
 interface IDragItem {
@@ -19,6 +20,7 @@ const SortableItem: React.FC<ISortableItemProps> = ({
   index,
   children,
   moveFormItem,
+  onClick,
 }) => {
   const ref = useRef<HTMLDivElement>(null);
 
@@ -69,7 +71,12 @@ const SortableItem: React.FC<ISortableItemProps> = ({
   drag(drop(ref));
 
   return (
-    <div className="form-wrapper" ref={ref} style={{ cursor: "move", opacity }}>
+    <div
+      className="form-wrapper"
+      ref={ref}
+      style={{ cursor: "move", opacity }}
+      onClick={() => onClick && onClick()}
+    >
       {children}
     </div>
   );

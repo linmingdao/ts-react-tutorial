@@ -12,42 +12,57 @@ export const EditorContext = React.createContext<H5EditorContext>({
   },
   buildingTemplateGroupList: [],
   stageItemList: [],
+  currentIndex: -1,
+  currentProps: {},
 });
 
 const H5Editor: React.FC<H5EditorProps> = ({
   brickTemplate,
   buildingTemplateGroupList,
 }) => {
-  const [stageItemList, setStageItemList] = useState([] as StageItem[]);
+  const [stageItemList, setStageItemList] = useState<StageItem[]>([]);
+  const [currentIndex, setCurrentIndex] = useState<number>(-1);
+  const [currentProps, setCurrentProps] = useState<any>(null);
   const passedContext: H5EditorContext = {
     brickTemplate,
     buildingTemplateGroupList,
     stageItemList,
+    currentIndex,
+    currentProps,
+    handlePropsChange(
+      changedValues: any,
+      allValues: any,
+      selectedIndex: number
+    ) {
+      setCurrentProps({
+        ...currentProps,
+        ...allValues,
+      });
+      setStageItemList(
+        stageItemList.map((item, index) => {
+          if (index === selectedIndex) {
+            return {
+              ...item,
+              props: {
+                ...item["props"],
+                ...allValues,
+              },
+            };
+          } else {
+            return item;
+          }
+        })
+      );
+    },
+    handleSelect(selectedIndex: number) {
+      setCurrentProps(stageItemList[selectedIndex].props);
+      setCurrentIndex(selectedIndex);
+    },
     handleDrop(item) {
-      console.log(item);
       setStageItemList([...stageItemList, { ...item, id: nanoid() }]);
-    },
-    handleSelect(selectedIndex: number) {},
-    handleCopy(selectedIndex: number) {
-      console.log("handleCopy", "selectedIndex", selectedIndex);
-    },
-    handleRemove(selectedIndex: number) {
-      console.log("handleRemove", "selectedIndex", selectedIndex);
     },
     handleClear() {
       setStageItemList([]);
-    },
-    handleReset() {
-      console.log("handleReset");
-    },
-    handleRedo() {
-      console.log("handleRedo");
-    },
-    handleUndo() {
-      console.log("handleUndo");
-    },
-    handleSave() {
-      console.log("handleSave");
     },
   };
 

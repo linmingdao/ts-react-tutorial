@@ -34,29 +34,25 @@ const App: React.FC = () => {
             brickTemplate={{
               icon: <SettingOutlined translate="" />,
               loader: (name: string) => () =>
-                import(`./BasicComponents/${name}/Stage`),
+                import(`./BasicComponents/${name}`),
               getComponents: () => [
                 {
                   label: "Mysql数据源",
                   name: "MysqlDataSourceSelect",
                   props: {
-                    label: "jjjj",
+                    label: "数据源",
+                    name: "source",
                     value: "",
-                    placeholder: "哈哈我额",
+                    placeholder: "请选择数据源",
                   },
                 },
-                {
-                  label: "App下载地址",
-                  name: "AppDownloadAddressInput",
-                },
-                {
-                  label: "用户名",
-                  name: "UserName",
-                },
-                {
-                  label: "用户密码",
-                  name: "UserPassword",
-                },
+                // {
+                //   label: "App下载地址",
+                //   name: "AppDownloadAddressInput",
+                //   props: {
+                //     placeholder: "哈哈我额",
+                //   },
+                // },
               ],
             }}
             buildingTemplateGroupList={[
